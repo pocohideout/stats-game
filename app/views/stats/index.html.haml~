@@ -1,0 +1,34 @@
+%h1 Listing stats
+
+%table
+  %thead
+    %tr
+      %th Category
+      %th Answer
+      %th Year
+      %th Question
+      %th Source
+      %th Link
+      %th
+      %th
+      %th
+      
+  %tbody
+    - @stats.each do |stat|
+      %tr
+        %td= stat.category
+        %td= stat.answer
+        %td= stat.year
+        %td= stat.question
+        %td= stat.source
+        %td= stat.link
+        %td= link_to 'Show', stat, class: 'btn btn-primary btn-xs'
+        %td= link_to 'Edit', edit_stat_path(stat), class: 'btn btn-info btn-xs'
+        %td= link_to 'Destroy', stat, :method => :delete, :data => { :confirm => 'Are you sure?' }, class: 'btn btn-danger btn-xs'
+
+%br
+
+= link_to new_stat_path, class: 'btn btn-success' do
+  %i.glyphicon.glyphicon-plus
+  New Stat
+= end

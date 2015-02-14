@@ -1,0 +1,24 @@
+%p#notice= notice
+
+%p
+  %b Category:
+  = @stat.category
+%p
+  %b Answer:
+  = @stat.answer
+%p
+  %b Year:
+  = @stat.year
+%p
+  %b Question:
+  = @stat.question
+%p
+  %b Source:
+  = @stat.source
+%p
+  %b Link:
+  = @stat.link
+
+= link_to 'Edit', edit_stat_path(@stat)
+\|
+= link_to 'Back', stats_path
