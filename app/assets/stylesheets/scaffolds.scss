@@ -20,14 +20,18 @@ pre {
   font-size: 11px;
 }
 
+input.btn:hover {
+  text-shadow: 0 0 4px #FFF;
+}
+
+.btn {
+  color: #FFF;
+}
+
 a {
   color: #000;
-  &:visited {
-    color: #666;
-  }
   &:hover {
-    color: #fff;
-    background-color: #000;
+    text-shadow: 0 0 4px #FFF;
   }
 }
 
