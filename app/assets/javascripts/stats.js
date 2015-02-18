@@ -11,6 +11,7 @@ var validationHandler = function(){
         "stat[link]": {url: true}
       },
       messages:{
+        "stat[question]":{minlength: "Question is too short"},
         "stat[year]":{number: "Please enter a valid year (YYYY)"}
       },
       errorElement: "span",
