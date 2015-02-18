@@ -10,6 +10,9 @@ var validationHandler = function(){
         "stat[year]": {number: true, min: 1500, max: new Date().getFullYear()},
         "stat[link]": {url: true}
       },
+      messages:{
+        "stat[year]":{number: "Please enter a valid year (YYYY)"}
+      },
       errorElement: "span",
       highlight: function(element, errorClass, validClass){
         $(element).addClass(errorClass).removeClass(validClass);
