@@ -42,6 +42,22 @@ RSpec.describe StatsController, type: :controller do
       get :index, {}, valid_session
       expect(assigns(:stats).to_a).to eq([stat])
     end
+    
+    it "paginates stats as @stats" do
+      list = TestObjects.stats!(55)
+      
+      # First page should have the latest 25 items
+      get :index, {}, valid_session
+      expect(assigns(:stats).to_a).to eq(list[30..54].reverse)
+      
+      # Second page should have the next 25 items
+      get :index, {'page' => '2'}, valid_session
+      expect(assigns(:stats).to_a).to eq(list[5..29].reverse)
+      
+      # Third page should have 5 remaining items
+      get :index, {'page' => '3'}, valid_session
+      expect(assigns(:stats).to_a).to eq(list[0..4].reverse)
+    end
   end
 
   describe "GET #show" do
