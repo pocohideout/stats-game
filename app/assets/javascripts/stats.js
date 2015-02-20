@@ -5,10 +5,11 @@ var validationHandler = function(){
     $("#new_stat").validate({
       debug: true,
       rules: {
-        "stat[question]": {required: true, minlength: 20},
-        "stat[answer]": {required: true, number: true, min: 0},
+        "stat[question]": {required: true, minlength: 20, maxlength: 180},
+        "stat[answer]": {required: true, number: true, min: 0, max: 9999999},
+        "stat[source]": {maxlength: 100},
         "stat[year]": {number: true, min: 1500, max: new Date().getFullYear()},
-        "stat[link]": {url: true}
+        "stat[link]": {url: true, maxlength: 300}
       },
       messages:{
         "stat[question]":{minlength: "Question is too short"},

@@ -6,7 +6,7 @@ RSpec.describe "stats/new", type: :view do
       :category => 1,
       :answer => "9.99",
       :year => 1,
-      :question => "MyText",
+      :question => "MyText with more than 20 chars",
       :source => "MyString",
       :link => "MyText"
     ))

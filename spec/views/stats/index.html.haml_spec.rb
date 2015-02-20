@@ -6,18 +6,18 @@ RSpec.describe "stats/index", type: :view do
       Stat.create!(
         :category => "science",
         :answer => "9.99",
-        :year => 2,
-        :question => "MyText",
+        :year => 2015,
+        :question => "MyText with more than 20 chars",
         :source => "Source",
-        :link => "MyText2"
+        :link => "http://www.mylink.com"
       ),
       Stat.create!(
         :category => "science",
         :answer => "9.99",
-        :year => 2,
-        :question => "MyText",
+        :year => 2015,
+        :question => "MyText with more than 20 chars",
         :source => "Source",
-        :link => "MyText2"
+        :link => "http://www.mylink.com"
       )
     ])
   end
@@ -26,9 +26,9 @@ RSpec.describe "stats/index", type: :view do
     render
     assert_select "tr>td", :text => "science".to_s, :count => 2
     assert_select "tr>td", :text => "9.99".to_s, :count => 2
-    assert_select "tr>td", :text => 2.to_s, :count => 2
-    assert_select "tr>td", :text => "MyText".to_s, :count => 2
+    assert_select "tr>td", :text => 2015.to_s, :count => 2
+    assert_select "tr>td", :text => "MyText with more than 20 chars".to_s, :count => 2
     assert_select "tr>td", :text => "Source".to_s, :count => 2
-    assert_select "tr>td", :text => "MyText2".to_s, :count => 2
+    assert_select "tr>td", :text => "http://www.mylink.com".to_s, :count => 2
   end
 end

@@ -50,6 +50,7 @@ div {
   background-color: red;
   display: table;*/
   @extend .has-error;
+  color: #F00;
 }
 
 #error_explanation {

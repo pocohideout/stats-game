@@ -6,9 +6,9 @@ RSpec.describe "stats/edit", type: :view do
       :category => "society",
       :answer => "9.99",
       :year => 2014,
-      :question => "MyText",
+      :question => "MyText with more than 20 chars",
       :source => "MyString",
-      :link => "MyText2"
+      :link => "http://www.mylink.com"
     ))
   end
 
@@ -24,11 +24,11 @@ RSpec.describe "stats/edit", type: :view do
 
       assert_select "input#stat_year[name=?][value=?]", "stat[year]", "2014"
 
-      assert_select "textarea#stat_question[name=?]", "stat[question]", text: "MyText"
+      assert_select "textarea#stat_question[name=?]", "stat[question]", text: "MyText with more than 20 chars"
 
       assert_select "input#stat_source[name=?][value=?]", "stat[source]", "MyString"
 
-      assert_select "textarea#stat_link[name=?]", "stat[link]", text: "MyText2"
+      assert_select "textarea#stat_link[name=?]", "stat[link]", text: "http://www.mylink.com"
     end
   end
 end
