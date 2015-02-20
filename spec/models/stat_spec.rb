@@ -1,12 +1,6 @@
 require 'rails_helper'
 require 'support/test_objects'
 
-def expect_field(field, with_value:, to_have_error:)
-  stat[field] = with_value
-  stat.valid?
-  expect(stat.errors[field]).to include(to_have_error)
-end
-
 describe Stat, type: :model do
   let(:stat) { TestObjects.stat }
 
@@ -69,5 +63,10 @@ describe Stat, type: :model do
     link_str = 'http://www.this-link-is-301-characters-long.com/this-link-is-way-too-long/this-link-is-way-too-long/this-link-is-way-too-long/this-link-is-way-too-long/this-link-is-way-too-long/this-link-is-way-too-long/this-link-is-way-too-long/this-link-is-way-too-long/this-link-is-way-too-long/this-link-is-way-to'
     expect_field :link, with_value: link_str, to_have_error: 'is too long'
   end
+end
 
+def expect_field(field, with_value:, to_have_error:)
+  stat[field] = with_value
+  stat.valid?
+  expect(stat.errors[field]).to include(to_have_error)
 end
