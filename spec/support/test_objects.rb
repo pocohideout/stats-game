@@ -10,11 +10,11 @@ module TestObjects
       link: 'http://www.somelink.com'
     )
   end
-  
-  def self.stats(count)
+
+  def self.stats!(count)
     list = []
     count.times do |i|
-      list << Stat.new(
+      list << Stat.create!(
         category: :science,
         question: "Some question over ___ characters long #{i}",
         answer: '20.0',
