@@ -25,6 +25,7 @@
         %td= link_to 'Show', stat, class: 'btn btn-primary btn-xs'
         %td= link_to 'Edit', edit_stat_path(stat), class: 'btn btn-info btn-xs'
         %td= link_to 'Destroy', stat, :method => :delete, :data => { :confirm => 'Are you sure?' }, class: 'btn btn-danger btn-xs'
+= paginate @stats
 
 %br
 
