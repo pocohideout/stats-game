@@ -20,4 +20,8 @@ class Stat
   field :source, type: String
   field :year, type: Integer
   field :link, type: String
+  
+  def answer=(val)
+    write_attribute(:answer, val.to_f.round(1))
+  end
 end

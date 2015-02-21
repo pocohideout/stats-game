@@ -63,6 +63,11 @@ describe Stat, type: :model do
     link_str = 'http://www.this-link-is-301-characters-long.com/this-link-is-way-too-long/this-link-is-way-too-long/this-link-is-way-too-long/this-link-is-way-too-long/this-link-is-way-too-long/this-link-is-way-too-long/this-link-is-way-too-long/this-link-is-way-too-long/this-link-is-way-too-long/this-link-is-way-to'
     expect_field :link, with_value: link_str, to_have_error: 'is too long'
   end
+
+  it 'rounds answer to nearest 0.1' do
+    stat.answer = '10.4612'
+    expect(stat.answer).to eq '10.5'
+  end
 end
 
 def expect_field(field, with_value:, to_have_error:)

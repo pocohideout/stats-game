@@ -4,7 +4,7 @@ RSpec.describe "stats/edit", type: :view do
   before(:each) do
     @stat = assign(:stat, Stat.create!(
       :category => "society",
-      :answer => "9.99",
+      :answer => "9.1",
       :year => 2014,
       :question => "MyText with more than 20 chars",
       :source => "MyString",
@@ -20,7 +20,7 @@ RSpec.describe "stats/edit", type: :view do
       assert_select "select#stat_category[name=?]", "stat[category]"
       assert_select "option[selected=?][value=?]", "selected", "society"
 
-      assert_select "input#stat_answer[name=?][value=?]", "stat[answer]", "9.99"
+      assert_select "input#stat_answer[name=?][value=?]", "stat[answer]", "9.1"
 
       assert_select "input#stat_year[name=?][value=?]", "stat[year]", "2014"
 
