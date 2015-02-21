@@ -6,11 +6,15 @@ class Stat
   validates :question, length: { minimum: 20, maximum: 180, too_short: 'is too short', too_long: 'is too long' }
   validates :answer,
     numericality: { greater_than_or_equal_to: 0, less_than_or_equal_to: 9999999, message: 'must be a number between 0 and 9,999,999' }
-  validates :source, length: { maximum: 100, message: 'is too long' }
+  validates :source,
+    allow_blank: true,
+    length: { maximum: 100, message: 'is too long' }
   validates :year,
+    allow_blank: true,
     numericality: { message: 'is not a number' },
     inclusion: { in: 1500..Date.today.year, message: "must be a year between 1500 and #{Date.today.year}" }
   validates :link,
+    allow_blank: true,
     length: { maximum: 300, message: 'is too long' },
     format: { with: /\A(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(([0-9]{1,5})?\/.*)?\z/ix, message: 'is not a valid URL' }
 
@@ -22,6 +26,8 @@ class Stat
   field :link, type: String
   
   def answer=(val)
+    return if val.empty?
+    
     write_attribute(:answer, val.to_f.round(1))
   end
 end
