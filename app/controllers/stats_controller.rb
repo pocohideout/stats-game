@@ -1,3 +1,5 @@
+require 'sequel'
+
 class StatsController < ApplicationController
   before_action :set_stat, only: [:show, :edit, :update, :destroy]
 
@@ -5,6 +7,7 @@ class StatsController < ApplicationController
   # GET /stats.json
   def index
     @stats = Stat.desc(:id).page params[:page]
+    @sqlite_file = SqliteFile.first
   end
 
   # GET /stats/1
@@ -58,6 +61,15 @@ class StatsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to stats_url, notice: 'Stat was successfully destroyed.' }
       format.json { head :no_content }
+    end
+  end
+  
+  # POST /stats/sync
+  def sync
+    SqliteFile.delete_all
+    @sqlite_file = SqliteFile.create_from!(Stat.all)
+    respond_to do |format|
+      format.html { redirect_to stats_url }
     end
   end
 

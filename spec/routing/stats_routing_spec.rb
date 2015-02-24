@@ -30,6 +30,10 @@ RSpec.describe StatsController, type: :routing do
     it "routes to #destroy" do
       expect(:delete => "/stats/1").to route_to("stats#destroy", :id => "1")
     end
+    
+    it 'routes to #sync' do
+      expect(:post => '/stats/sync').to route_to('stats#sync')
+    end
 
   end
 end
