@@ -34,6 +34,10 @@ RSpec.describe StatsController, type: :routing do
     it 'routes to #sync' do
       expect(:post => '/stats/sync').to route_to('stats#sync')
     end
+    
+    it 'routes to #download_sqlite' do
+      expect(:get => '/stats/sync').to route_to('stats#download_stats')
+    end
 
   end
 end

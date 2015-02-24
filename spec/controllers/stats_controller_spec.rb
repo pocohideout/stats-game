@@ -211,7 +211,7 @@ RSpec.describe StatsController, type: :controller do
       end
     end
     
-    it 'redirects to the sync page' do
+    it 'redirects to the stats page' do
       post :sync, {}, valid_session
       expect(response).to redirect_to(stats_url)
     end
@@ -222,6 +222,13 @@ RSpec.describe StatsController, type: :controller do
       post :sync, {}, valid_session
       
       expect(SqliteFile.count).to eq 1
+    end
+  end
+  
+  describe 'GET #sync' do
+    it 'redirects to the stats page if SqliteFile does not exist' do
+      get :sync, {}, valid_session
+      expect(response).to redirect_to(stats_url)
     end
   end
 

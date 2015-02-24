@@ -1,5 +1,5 @@
 require 'rails_helper'
-require 'support/test_objects'
+require 'support/test_objects' #TODO Can probably put this in rails_helper.rb
 
 describe Stat, type: :model do
   let(:stat) { TestObjects.stat }

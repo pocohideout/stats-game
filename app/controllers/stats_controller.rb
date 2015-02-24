@@ -72,6 +72,11 @@ class StatsController < ApplicationController
       format.html { redirect_to stats_url }
     end
   end
+  
+  # GET /stats/sync
+  def download_stats
+    send_data SqliteFile.first.file.data, filename: 'stats.sqlite', type: 'application/x-sqlite3'
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.

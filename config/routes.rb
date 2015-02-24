@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   resources :stats do
     collection do
       post 'sync'
+      get 'sync' => 'stats#download_stats'
     end
   end
 

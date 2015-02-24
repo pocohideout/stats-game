@@ -37,6 +37,6 @@
 
 = link_to 'Sync', sync_stats_path, method: :post, class: 'btn btn-success'
 - if @sqlite_file
-  %p Last sync: #{@sqlite_file.id.generation_time}
+  %p Last sync: #{link_to @sqlite_file.id.generation_time, sync_stats_path, method: :get}
 - else
   %p Last sync: Never

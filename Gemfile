@@ -62,6 +62,10 @@ group :development, :test do
 
   # Use RSpec for testing
   gem 'rspec-rails', '~> 3.0'
+  
+  # For web testing
+  gem 'capybara', '~> 2.4.4'
+  gem 'selenium-webdriver', '~> 2.44.0'
 
   # RSpec with Mongoid
   gem 'mongoid-rspec', '~> 2.1.0'
