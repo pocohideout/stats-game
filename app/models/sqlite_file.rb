@@ -33,7 +33,7 @@ class SqliteFile
       primary_key :id
       Integer :category
       String :question
-      String :answer   #TODO May want to make this an integer, uses less space
+      Float :answer
       String :source
       Integer :year
       String :link

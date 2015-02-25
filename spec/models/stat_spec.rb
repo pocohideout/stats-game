@@ -65,8 +65,8 @@ describe Stat, type: :model do
   end
 
   it 'rounds answer to nearest 0.1' do
-    stat.answer = '10.4612'
-    expect(stat.answer).to eq '10.5'
+    stat.answer = 10.4612
+    expect(stat.answer).to eq 10.5
   end
 end
 

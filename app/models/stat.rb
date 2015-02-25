@@ -19,14 +19,14 @@ class Stat
     format: { with: /\A(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(([0-9]{1,5})?\/.*)?\z/ix, message: 'is not a valid URL' }
 
   as_enum :category, science: 0, society: 1, entertainment: 2
-  field :answer, type: String  #TODO Should store answer as integer?? Uses less DB space
+  field :answer, type: Float
   field :question, type: String
   field :source, type: String
   field :year, type: Integer
   field :link, type: String
   
   def answer=(val)
-    return if val.empty?
+    return if val.nil?
     
     write_attribute(:answer, val.to_f.round(1))
   end

@@ -24,11 +24,11 @@ RSpec.describe StatsController, type: :controller do
   # Stat. As you add validations to Stat, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    {category: :science, answer: '2.6', year: 2014, question: "___% of the world's total energy consumption comes from nuclear power.", source: "REN21", link: "http://www.ren21.net/Portals/0/documents/Resources/GSR/2014/GSR2014_KeyFindings_low%20res.pdf"}
+    {category: :science, answer: 2.6, year: 2014, question: "___% of the world's total energy consumption comes from nuclear power.", source: "REN21", link: "http://www.ren21.net/Portals/0/documents/Resources/GSR/2014/GSR2014_KeyFindings_low%20res.pdf"}
   }
 
   let(:invalid_attributes) {
-    {category: :blah, answer: '2.6', year: 2014, question: "___% of the world's total energy consumption comes from nuclear power.", source: "REN21", link: "http://www.ren21.net/Portals/0/documents/Resources/GSR/2014/GSR2014_KeyFindings_low%20res.pdf"}
+    {category: :blah, answer: 2.6, year: 2014, question: "___% of the world's total energy consumption comes from nuclear power.", source: "REN21", link: "http://www.ren21.net/Portals/0/documents/Resources/GSR/2014/GSR2014_KeyFindings_low%20res.pdf"}
   }
 
   # This should return the minimal set of values that should be in the session

@@ -21,7 +21,7 @@ module TestObjects
     {
       category: :science,
       question: 'Some question over ___ characters long',
-      answer: '20.0',
+      answer: 20.0,
       source: 'UC Berkeley',
       year: 2015,
       link: 'http://www.somelink.com'
