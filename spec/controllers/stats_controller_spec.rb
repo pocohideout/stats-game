@@ -216,12 +216,15 @@ RSpec.describe StatsController, type: :controller do
       expect(response).to redirect_to(stats_url)
     end
     
-    it 'replaces any existing sqlite file in the DB' do
-      list = TestObjects.stats!(2)
-      file = SqliteFile.create!(file: BSON::Binary.new('test', :generic))
+    it 'stores a maximum of 5 SqliteFiles in the DB' do
+      TestObjects.stats!(2)
+      files = []
+      5.times do
+        SqliteFile.create!(file: BSON::Binary.new('test', :generic))
+      end
       post :sync, {}, valid_session
       
-      expect(SqliteFile.count).to eq 1
+      expect(SqliteFile.count).to eq 5
     end
   end
   

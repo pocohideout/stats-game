@@ -66,7 +66,8 @@ class StatsController < ApplicationController
   
   # POST /stats/sync
   def sync
-    SqliteFile.delete_all
+    SqliteFile.first.delete if SqliteFile.count >= 5
+
     @sqlite_file = SqliteFile.create_from!(Stat.all)
     respond_to do |format|
       format.html { redirect_to stats_url }
@@ -75,7 +76,7 @@ class StatsController < ApplicationController
   
   # GET /stats/sync
   def download_stats
-    send_data SqliteFile.first.file.data, filename: 'stats.sqlite', type: 'application/x-sqlite3'
+    send_data SqliteFile.last.file.data, filename: 'stats.sqlite', type: 'application/x-sqlite3'
   end
 
   private
