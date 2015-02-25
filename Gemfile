@@ -37,6 +37,9 @@ gem 'haml-rails', '~> 0.8'
 gem 'mongoid', '~> 4.0.0'
 gem 'simple_enum', '~> 2.0.0', require: 'simple_enum/mongoid'
 
+# For authentication
+gem 'devise', '~> 3.4.1'
+
 # Twitter Bootstrap
 gem 'bootstrap-sass', '~> 3.3.0'
 

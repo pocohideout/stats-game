@@ -34,12 +34,16 @@ RSpec.describe StatsController, type: :controller do
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
   # StatsController. Be sure to keep this updated too.
-  let(:valid_session) { {} }
+  let(:valid_session) { session }
+
+  before(:each) do
+    sign_in User.create!(email: 'tester@tester.com', password: 'somepass', password_confirmation: 'somepass')
+  end
 
   describe "GET #index" do
     it "assigns all stats as @stats" do
       stat = Stat.create! valid_attributes
-      get :index, {}, valid_session
+      get :index, {}
       expect(assigns(:stats).to_a).to eq([stat])
     end
     
@@ -47,15 +51,15 @@ RSpec.describe StatsController, type: :controller do
       list = TestObjects.stats!(55)
       
       # First page should have the latest 25 items
-      get :index, {}, valid_session
+      get :index, {}
       expect(assigns(:stats).to_a).to eq(list[30..54].reverse)
       
       # Second page should have the next 25 items
-      get :index, {'page' => '2'}, valid_session
+      get :index, {'page' => '2'}
       expect(assigns(:stats).to_a).to eq(list[5..29].reverse)
       
       # Third page should have 5 remaining items
-      get :index, {'page' => '3'}, valid_session
+      get :index, {'page' => '3'}
       expect(assigns(:stats).to_a).to eq(list[0..4].reverse)
     end
     
