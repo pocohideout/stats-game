@@ -31,4 +31,11 @@ describe "stats/index", type: :view do
     render
     assert_select 'p', text: "Last sync: #{file.id.generation_time}"
   end
+  
+  it 'states that there are no results if the list of stats is empty' do
+    assign :stats, Kaminari.paginate_array([]).page(1)
+    assign :sqlite_file, nil
+    render
+    assert_select 'p', text: "No results found"
+  end
 end

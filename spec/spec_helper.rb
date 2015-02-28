@@ -16,6 +16,10 @@
 # users commonly want.
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
+
+# In order for fast tests to work on isolated classes, remove some dependencies
+mode = ENV['SPEC_MODE'] || 'full'
+
 RSpec.configure do |config|
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest
@@ -40,18 +44,20 @@ RSpec.configure do |config|
     mocks.verify_partial_doubles = true
   end
 
-  # Config for DatabaseCleaner
-  config.before(:suite) do
-    DatabaseCleaner[:mongoid].strategy = :truncation
-    DatabaseCleaner[:mongoid].clean_with :truncation
-  end
+  if mode.downcase == 'full'
+    # Config for DatabaseCleaner
+    config.before(:suite) do
+      DatabaseCleaner[:mongoid].strategy = :truncation
+      DatabaseCleaner[:mongoid].clean_with :truncation
+    end
 
-  config.before(:each) do
-    DatabaseCleaner.start
-  end
+    config.before(:each) do
+      DatabaseCleaner.start
+    end
 
-  config.after(:each) do
-    DatabaseCleaner.clean
+    config.after(:each) do
+      DatabaseCleaner.clean
+    end
   end
 
 # The settings below are suggested to provide a good initial experience

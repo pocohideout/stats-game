@@ -25,6 +25,10 @@ class Stat
   field :year, type: Integer
   field :link, type: String
   
+  index({'question' => 'text', 'source' => 'text', 'link' => 'text'},
+        {weights: {'question' => 10, 'source' => 5, 'link' => 2},
+        name: 'statTxtIdx'})
+  
   def answer=(val)
     return if val.nil?
     

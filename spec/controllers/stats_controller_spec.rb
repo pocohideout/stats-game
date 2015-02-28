@@ -47,6 +47,8 @@ RSpec.describe StatsController, type: :controller do
       expect(assigns(:stats).to_a).to eq([stat])
     end
     
+    #TODO Creating 55 records is time-consuming, we can change this to accept a per_page,
+    #     and test the default of 25 items elsewhere
     it "paginates stats as @stats" do
       list = TestObjects.stats!(55)
       
@@ -66,6 +68,12 @@ RSpec.describe StatsController, type: :controller do
     it 'assigns an empty array as @sqlite_file if there is no SqliteFile' do
       get :index, {}, valid_session
       expect(assigns(:sqlite_file)).to be_nil
+    end
+    
+    it 'assigns search results as @stats' do
+      list = TestObjects.stats!(1)
+      get :index, {searchterm: 'question'}
+      expect(assigns(:stats).to_a).to eq(list)
     end
   end
 
@@ -189,9 +197,6 @@ RSpec.describe StatsController, type: :controller do
       expect {
         post :sync, {}, valid_session
       }.to change(SqliteFile, :count).by(1)
-
-      expect(assigns(:sqlite_file)).to be_a(SqliteFile)
-      expect(assigns(:sqlite_file)).to be_persisted
       
       begin
         dbfile = Tempfile.new('test-sqlite')

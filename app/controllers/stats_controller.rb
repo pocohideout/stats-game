@@ -1,4 +1,5 @@
 require 'sequel'
+require 'search_engine'
 
 class StatsController < ApplicationController
   before_action :set_stat, only: [:show, :edit, :update, :destroy]
@@ -6,7 +7,13 @@ class StatsController < ApplicationController
   # GET /stats
   # GET /stats.json
   def index
-    @stats = Stat.desc(:id).page params[:page]
+    if params[:searchterm]
+      @stats = SearchEngine.search(Stat, params[:searchterm])
+      @stats = Kaminari.paginate_array(@stats).page(1).per(50)
+    else
+      @stats = Stat.desc(:id).page params[:page]
+    end
+
     @sqlite_file = SqliteFile.first
   end
 
@@ -68,7 +75,7 @@ class StatsController < ApplicationController
   def sync
     SqliteFile.first.delete if SqliteFile.count >= 5
 
-    @sqlite_file = SqliteFile.create_from!(Stat.all)
+    SqliteFile.create_from!(Stat.all)
     respond_to do |format|
       format.html { redirect_to stats_url }
     end
@@ -80,6 +87,7 @@ class StatsController < ApplicationController
   end
 
   private
+
     # Use callbacks to share common setup or constraints between actions.
     def set_stat
       @stat = Stat.find(params[:id])

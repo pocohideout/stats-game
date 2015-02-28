@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "stats/new", type: :view do
   before(:each) do
-    assign(:stat, Stat.new(
+    assign(:stat, Stat.new(  #TODO Why do we need this assign? Looks like it is not used
       :category => 1,
       :answer => "9.99",
       :year => 1,

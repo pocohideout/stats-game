@@ -1,6 +1,14 @@
 %h1 Questions
 
-%table.table
+.col-md-3.pull-right
+  = form_tag(stats_url, method: :get) do
+    .input-group
+      = text_field_tag 'searchterm', nil, class: 'form-control', placeholder: 'Search'
+      %span.input-group-btn
+        = button_tag(type: 'submit', id: 'searchbutton', class: 'btn btn-default') do
+          %i.glyphicon.glyphicon-search
+
+%table.table.table-hover
   %thead
     %tr
       %th Date
@@ -10,8 +18,6 @@
       %th Question
       %th Source
       %th Link
-      %th
-      %th
       %th
       
   %tbody
@@ -24,9 +30,12 @@
         %td= stat.question
         %td= stat.source
         %td= link_to 'Click here', stat.link
-        %td= link_to 'Show', stat, class: 'btn btn-primary btn-xs'
-        %td= link_to 'Edit', edit_stat_path(stat), class: 'btn btn-info btn-xs'
-        %td= link_to 'Destroy', stat, :method => :delete, :data => { :confirm => 'Are you sure?' }, class: 'btn btn-danger btn-xs'
+        %td
+          = link_to 'Show', stat, class: 'btn btn-primary btn-xs'
+          = link_to 'Edit', edit_stat_path(stat), class: 'btn btn-info btn-xs'
+          = link_to 'Destroy', stat, :method => :delete, :data => { :confirm => 'Are you sure?' }, class: 'btn btn-danger btn-xs'
+- if @stats.empty?
+  %p No results found
 = paginate @stats
 
 %br
