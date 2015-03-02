@@ -11,7 +11,7 @@ class StatsController < ApplicationController
       @stats = SearchEngine.search(Stat, params[:searchterm])
       @stats = Kaminari.paginate_array(@stats).page(1).per(50)
     else
-      @stats = Stat.desc(:id).page params[:page]
+      @stats = Stat.desc(:id).page(params[:page]).per(params[:per_page])
     end
 
     @sqlite_file = SqliteFile.first

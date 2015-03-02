@@ -46,23 +46,21 @@ RSpec.describe StatsController, type: :controller do
       get :index, {}
       expect(assigns(:stats).to_a).to eq([stat])
     end
-    
-    #TODO Creating 55 records is time-consuming, we can change this to accept a per_page,
-    #     and test the default of 25 items elsewhere
+
     it "paginates stats as @stats" do
-      list = TestObjects.stats!(55)
+      list = TestObjects.stats!(5)
       
-      # First page should have the latest 25 items
-      get :index, {}
-      expect(assigns(:stats).to_a).to eq(list[30..54].reverse)
+      # First page should have the latest 2 items
+      get :index, {'per_page' => '2'}
+      expect(assigns(:stats).to_a).to eq(list[3..4].reverse)
       
-      # Second page should have the next 25 items
-      get :index, {'page' => '2'}
-      expect(assigns(:stats).to_a).to eq(list[5..29].reverse)
+      # Second page should have the next 2 items
+      get :index, {'per_page' => '2', 'page' => '2'}
+      expect(assigns(:stats).to_a).to eq(list[1..2].reverse)
       
-      # Third page should have 5 remaining items
-      get :index, {'page' => '3'}
-      expect(assigns(:stats).to_a).to eq(list[0..4].reverse)
+      # Third page should have 1 remaining item
+      get :index, {'per_page' => '2', 'page' => '3'}
+      expect(assigns(:stats).to_a).to eq([list[0]])
     end
     
     it 'assigns an empty array as @sqlite_file if there is no SqliteFile' do
