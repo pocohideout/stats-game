@@ -51,15 +51,15 @@ RSpec.describe StatsController, type: :controller do
       list = TestObjects.stats!(5)
       
       # First page should have the latest 2 items
-      get :index, {'per_page' => '2'}
+      get :index, {per_page: 2}
       expect(assigns(:stats).to_a).to eq(list[3..4].reverse)
       
       # Second page should have the next 2 items
-      get :index, {'per_page' => '2', 'page' => '2'}
+      get :index, {per_page: 2, page: 2}
       expect(assigns(:stats).to_a).to eq(list[1..2].reverse)
       
       # Third page should have 1 remaining item
-      get :index, {'per_page' => '2', 'page' => '3'}
+      get :index, {per_page: 2, page: 3}
       expect(assigns(:stats).to_a).to eq([list[0]])
     end
     
