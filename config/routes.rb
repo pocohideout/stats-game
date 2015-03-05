@@ -13,6 +13,7 @@ Rails.application.routes.draw do
     collection do
       post 'sync'
       get 'sync' => 'stats#download_stats'
+      get 'similar' => 'stats#similar'
     end
   end
 

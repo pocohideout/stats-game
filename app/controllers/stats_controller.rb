@@ -1,5 +1,7 @@
 require 'sequel'
 require 'search_engine'
+require 'stat_search_engine'
+require 'ext/array'
 
 class StatsController < ApplicationController
   before_action :set_stat, only: [:show, :edit, :update, :destroy]
@@ -84,6 +86,17 @@ class StatsController < ApplicationController
   # GET /stats/sync
   def download_stats
     send_data SqliteFile.last.file.data, filename: 'stats.sqlite', type: 'application/x-sqlite3'
+  end
+
+  # GET /stats/similar
+  def similar
+    results = StatSearchEngine.new.similar(params[:question])
+    results = results.map {|x| x.question }
+    
+    respond_to do |format|
+      format.html
+      format.json { render json: {list: results} }
+    end
   end
 
   private

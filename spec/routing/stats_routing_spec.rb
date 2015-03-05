@@ -39,5 +39,8 @@ RSpec.describe StatsController, type: :routing do
       expect(:get => '/stats/sync').to route_to('stats#download_stats')
     end
 
+    it 'routes to #similar' do
+      expect(:get => '/stats/similar').to route_to('stats#similar')
+    end
   end
 end
