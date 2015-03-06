@@ -50,6 +50,7 @@ gem 'autoprefixer-rails'
 gem 'kaminari'
 
 # For creating sqlite files
+gem 'sqlite3'
 gem 'sequel'
 
 group :production do
@@ -57,9 +58,6 @@ group :production do
 end
 
 group :development, :test do
-  # For creating sqlite files
-  gem 'sqlite3'
-  
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
 
