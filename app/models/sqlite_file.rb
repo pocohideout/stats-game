@@ -15,7 +15,7 @@ class SqliteFile
   
   def self.create_db_file(stats)
     begin
-      dbfile = Tempfile.new('sqlite')
+      dbfile = Tempfile.new('sqlite', Rails.root.join('tmp'))
       db = Sequel.connect("sqlite://#{dbfile.path}")
       
       create_stats_table(db)
