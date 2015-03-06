@@ -49,15 +49,18 @@ gem 'autoprefixer-rails'
 # For pagination
 gem 'kaminari'
 
-# For creating sqlite files
-gem 'sqlite3'
-gem 'sequel'
+# Rest client
+gem 'rest_client'
 
 group :production do
   gem 'rails_12factor'
 end
 
 group :development, :test do
+  # For creating sqlite files
+  gem 'sqlite3'
+  gem 'sequel'
+
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
 

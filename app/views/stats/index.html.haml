@@ -43,9 +43,3 @@
 = link_to new_stat_path, class: 'btn btn-success' do
   %i.glyphicon.glyphicon-plus
   New Stat
-
-= link_to 'Sync', sync_stats_path, method: :post, class: 'btn btn-success'
-- if @sqlite_file
-  %p Last sync: #{link_to @sqlite_file.id.generation_time, sync_stats_path, method: :get}
-- else
-  %p Last sync: Never
