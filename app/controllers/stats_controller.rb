@@ -1,4 +1,3 @@
-require 'sequel'
 require 'search_engine'
 require 'stat_search_engine'
 require 'ext/array'

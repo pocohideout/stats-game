@@ -50,7 +50,7 @@ gem 'autoprefixer-rails'
 gem 'kaminari'
 
 # Rest client
-gem 'rest_client'
+gem 'rest-client'
 
 group :production do
   gem 'rails_12factor'

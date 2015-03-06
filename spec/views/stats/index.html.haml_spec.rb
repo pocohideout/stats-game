@@ -16,22 +16,7 @@ describe "stats/index", type: :view do
     assert_select "tr>td", :text => 'Click here', :count => 2
     assert_select "tr>td>a[href=?]", stat_ref.link, count: 2
   end
-  
-  it 'prints last sync date as "Never" if SqliteFile does not exist' do
-    assign :stats, Kaminari.paginate_array(TestObjects.stats!(1)).page(1)
-    assign :sqlite_file, nil
-    render
-    assert_select 'p', text: 'Last sync: Never'
-  end
-  
-  it 'prints last sync date' do
-    assign :stats, Kaminari.paginate_array(TestObjects.stats!(1)).page(1)
-    file = SqliteFile.new(file: BSON::Binary.new('test', :generic))
-    assign :sqlite_file, file
-    render
-    assert_select 'p', text: "Last sync: #{file.id.generation_time}"
-  end
-  
+
   it 'states that there are no results if the list of stats is empty' do
     assign :stats, Kaminari.paginate_array([]).page(1)
     assign :sqlite_file, nil
