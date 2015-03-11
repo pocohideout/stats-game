@@ -1,4 +1,5 @@
 require 'rest_client'
+require 'date'
 
 class StatExporter
 
@@ -8,7 +9,7 @@ class StatExporter
     @api = api
   end
   
-  def export(file = '/tmp/stats.sqlite')
+  def export(file = "/tmp/stats-#{Date.today.strftime('%Y%m%d')}.sqlite")
     dbfile = File.new(file, 'wb')
     create_db_file(dbfile)
     dbfile

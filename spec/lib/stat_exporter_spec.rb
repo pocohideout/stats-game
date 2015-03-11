@@ -1,5 +1,6 @@
 require 'stat_exporter'
 require 'sequel'
+require 'date'
 
 describe StatExporter do
   
@@ -68,6 +69,15 @@ describe StatExporter do
     ensure
       db.disconnect
     end
+  end
+  
+  it 'includes the date in the default sqlite filename' do
+    api = instance_double('AmazingStatsAPI')
+    expect(api).to receive(:stats).with(per_page: 50, page: 1).and_return([])
+    
+    file = StatExporter.new(api).export
+    
+    expect(file.path).to eq("/tmp/stats-#{Date.today.strftime('%Y%m%d')}.sqlite")
   end
   
   def stats(count)
