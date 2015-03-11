@@ -1,4 +1,10 @@
-%h1 Questions
+%h1 Statistics
+
+= link_to new_stat_path, class: 'btn btn-success' do
+  %i.glyphicon.glyphicon-plus
+  New Stat
+  
+%br
 
 .col-md-3.pull-right
   = form_tag(stats_url, method: :get) do
@@ -35,9 +41,3 @@
 - if @stats.empty?
   %p No results found
 = paginate @stats
-
-%br
-
-= link_to new_stat_path, class: 'btn btn-success' do
-  %i.glyphicon.glyphicon-plus
-  New Stat
