@@ -75,9 +75,12 @@ describe StatExporter do
     api = instance_double('AmazingStatsAPI')
     expect(api).to receive(:stats).with(per_page: 50, page: 1).and_return([])
     
-    file = StatExporter.new(api).export
-    
-    expect(file.path).to eq("/tmp/stats-#{Date.today.strftime('%Y%m%d')}.sqlite")
+    begin
+      file = StatExporter.new(api).export
+      expect(file.path).to eq("/tmp/stats-#{Date.today.strftime('%Y%m%d')}.sqlite")
+    ensure
+      File.delete(file)
+    end
   end
   
   def stats(count)
