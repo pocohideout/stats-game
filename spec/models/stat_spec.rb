@@ -82,6 +82,17 @@ describe Stat, type: :model do
     
     expect(stat.json).to eq(expected_json)
   end
+  
+  it 'strips leading and trailing whitespace from string attributes' do
+    question = 'Question string with leading and trailing spaces'
+    source   = 'Source'
+    stat.question = "   #{question}   "
+    stat.source   = "   #{source}   "
+    
+    stat.valid?
+    expect(stat.question).to eq question
+    expect(stat.source).to eq source
+  end
 end
 
 def expect_field(field, with_value:, to_have_error:)

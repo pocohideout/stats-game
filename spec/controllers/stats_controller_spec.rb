@@ -111,6 +111,19 @@ RSpec.describe StatsController, type: :controller do
         post :create, {:stat => valid_attributes}, valid_session
         expect(response).to redirect_to(Stat.last)
       end
+      
+      # it "strips leading and trailing spaces from Stat's string attributes" do
+#         question = 'Question string with leading and trailing spaces'
+#         source = 'Source'
+#         valid_attributes[:question] = "   #{question}   "
+#         valid_attributes[:source] = "   #{source}   "
+#
+#         post :create, {:stat => valid_attributes}, valid_session
+#
+#         new_stat = Stat.last
+#         expect(new_stat.question).to eq(question)
+#         expect(new_stat.source).to eq(source)
+#       end
     end
 
     context "with invalid params" do

@@ -17,6 +17,8 @@ class Stat
     allow_blank: true,
     length: { maximum: 300, message: 'is too long' },
     format: { with: /\A(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(([0-9]{1,5})?\/.*)?\z/ix, message: 'is not a valid URL' }
+  
+  before_validation :strip_whitespace
 
   as_enum :category, science: 0, society: 1, entertainment: 2
   field :answer, type: Float
@@ -34,10 +36,17 @@ class Stat
     
     write_attribute(:answer, val.to_f.round(1))
   end
-  
+
   def json
     attrs = attributes
     attrs['_id'] = attrs['_id'].to_s
     attrs
+  end
+  
+  private
+  
+  def strip_whitespace
+    self.question.strip! if self.question
+    self.source.strip! if self.source
   end
 end
