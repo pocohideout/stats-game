@@ -68,6 +68,20 @@ describe Stat, type: :model do
     stat.answer = 10.4612
     expect(stat.answer).to eq 10.5
   end
+  
+  it 'converts to json' do
+    expected_json = {
+      '_id' => stat._id.to_s,
+      'category_cd' => stat.category_cd,
+      'question' => stat.question,
+      'answer' => stat.answer,
+      'source' => stat.source,
+      'year' => stat.year,
+      'link' => stat.link
+    }
+    
+    expect(stat.json).to eq(expected_json)
+  end
 end
 
 def expect_field(field, with_value:, to_have_error:)

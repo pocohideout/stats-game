@@ -3,6 +3,10 @@ class Array
     return self.dup - stopwords
   end
   
+  def json
+    self.map {|x| x.json }
+  end
+  
   private
   
   def stopwords

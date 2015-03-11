@@ -1,11 +1,16 @@
 Rails.application.routes.draw do
-  devise_for :users
+  devise_for :users, :controllers => { :sessions => "api/v1/sessions" }
   devise_scope :user do
     authenticated :user do
       root :to => 'stats#index', as: :authenticated_root
     end
     unauthenticated :user do
       root :to => 'devise/sessions#new', as: :unauthenticated_root
+    end
+    namespace :api do
+      namespace :v1 do
+        resources :sessions, :only => [:create, :destroy]
+      end
     end
   end
   
@@ -14,6 +19,12 @@ Rails.application.routes.draw do
       post 'sync'
       get 'sync' => 'stats#download_stats'
       get 'similar' => 'stats#similar'
+    end
+  end
+  
+  namespace :api do
+    namespace :v1 do
+      get 'stats' => 'stats#index'
     end
   end
 

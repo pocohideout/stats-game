@@ -34,4 +34,10 @@ class Stat
     
     write_attribute(:answer, val.to_f.round(1))
   end
+  
+  def json
+    attrs = attributes
+    attrs['_id'] = attrs['_id'].to_s
+    attrs
+  end
 end
