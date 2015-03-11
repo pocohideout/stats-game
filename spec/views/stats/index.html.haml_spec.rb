@@ -13,7 +13,6 @@ describe "stats/index", type: :view do
     assert_select "tr>td", :text => stat_ref.year.to_s, :count => 2
     assert_select "tr>td", :text => /#{Regexp.quote(stat_ref.question)}/, :count => 2
     assert_select "tr>td", :text => stat_ref.source, :count => 2
-    assert_select "tr>td", :text => 'Click here', :count => 2
     assert_select "tr>td>a[href=?]", stat_ref.link, count: 2
   end
 
