@@ -62,12 +62,7 @@ RSpec.describe StatsController, type: :controller do
       get :index, {per_page: 2, page: 3}
       expect(assigns(:stats).to_a).to eq([list[0]])
     end
-    
-    it 'assigns an empty array as @sqlite_file if there is no SqliteFile' do
-      get :index, {}, valid_session
-      expect(assigns(:sqlite_file)).to be_nil
-    end
-    
+
     it 'assigns search results as @stats' do
       list = TestObjects.stats!(1)
       get :index, {searchterm: 'question'}
@@ -185,59 +180,6 @@ RSpec.describe StatsController, type: :controller do
     it "redirects to the stats list" do
       stat = Stat.create! valid_attributes
       delete :destroy, {:id => stat.to_param}, valid_session
-      expect(response).to redirect_to(stats_url)
-    end
-  end
-  
-  describe 'POST #sync' do
-    it 'creates a sqlite file in the DB that contains all existing stats' do
-      list = TestObjects.stats!(2)
-      expect {
-        post :sync, {}, valid_session
-      }.to change(SqliteFile, :count).by(1)
-      
-      begin
-        dbfile = Tempfile.new('test-sqlite')
-
-        IO.binwrite(dbfile, SqliteFile.first.file.data)
-        db = Sequel.connect("sqlite://#{dbfile.path}")
-        sqlite_stats = db[:stats].all
-
-        expect(sqlite_stats.count).to eq 2      
-        sqlite_stats.each_with_index do |x, i|
-          expect(x[:category]).to eq(list[i].category_cd)
-          expect(x[:question]).to eq(list[i].question)
-          expect(x[:answer]).to eq(list[i].answer)
-          expect(x[:source]).to eq(list[i].source)
-          expect(x[:year]).to eq(list[i].year)
-          expect(x[:link]).to eq(list[i].link)
-        end
-      ensure
-        db.disconnect
-        dbfile.unlink
-      end
-    end
-    
-    it 'redirects to the stats page' do
-      post :sync, {}, valid_session
-      expect(response).to redirect_to(stats_url)
-    end
-    
-    it 'stores a maximum of 5 SqliteFiles in the DB' do
-      TestObjects.stats!(2)
-      files = []
-      5.times do
-        SqliteFile.create!(file: BSON::Binary.new('test', :generic))
-      end
-      post :sync, {}, valid_session
-      
-      expect(SqliteFile.count).to eq 5
-    end
-  end
-  
-  describe 'GET #sync' do
-    it 'redirects to the stats page if SqliteFile does not exist' do
-      get :sync, {}, valid_session
       expect(response).to redirect_to(stats_url)
     end
   end

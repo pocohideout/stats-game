@@ -14,8 +14,6 @@ class StatsController < ApplicationController
     else
       @stats = Stat.desc(:id).page(params[:page]).per(params[:per_page])
     end
-
-    @sqlite_file = SqliteFile.first
   end
 
   # GET /stats/1
@@ -70,21 +68,6 @@ class StatsController < ApplicationController
       format.html { redirect_to stats_url, notice: 'Stat was successfully destroyed.' }
       format.json { head :no_content }
     end
-  end
-  
-  # POST /stats/sync
-  def sync
-    SqliteFile.first.delete if SqliteFile.count >= 5
-
-    SqliteFile.create_from!(Stat.all)
-    respond_to do |format|
-      format.html { redirect_to stats_url }
-    end
-  end
-  
-  # GET /stats/sync
-  def download_stats
-    send_data SqliteFile.last.file.data, filename: 'stats.sqlite', type: 'application/x-sqlite3'
   end
 
   # GET /stats/similar
