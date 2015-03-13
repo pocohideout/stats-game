@@ -8,12 +8,33 @@ class StatsController < ApplicationController
   # GET /stats
   # GET /stats.json
   def index
-    if params[:searchterm]
-      @stats = SearchEngine.search(Stat, params[:searchterm])
-      @stats = Kaminari.paginate_array(@stats).page(1).per(50)
-    else
-      @stats = Stat.desc(:id).page(params[:page]).per(params[:per_page])
+    page     = params[:page] || 1
+    page     = page.to_i
+    per_page = params[:per_page] || 25
+    per_page = per_page.to_i
+    @results = {}
+
+    search = params[:searchterm]
+    if search && search.empty?
+      search = nil
     end
+
+    if search
+      page     = 1
+      per_page = 50
+      @stats = SearchEngine.search(Stat, search)
+      total  = @stats.count
+      @stats = Kaminari.paginate_array(@stats).page(page).per(per_page)
+      
+      @searchterm = search
+    else
+      @stats = Stat.desc(:id).page(page).per(per_page)
+      total  = Stat.count
+    end
+    
+    @results[:first] = (page-1) * per_page + 1
+    @results[:last ] = [total, page * per_page].min
+    @results[:total] = total
   end
 
   # GET /stats/1

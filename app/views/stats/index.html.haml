@@ -1,43 +1,48 @@
-%h1 Statistics
+.row
+  %h1 Statistics
 
-= link_to new_stat_path, class: 'btn btn-success' do
-  %i.glyphicon.glyphicon-plus
-  New Stat
-  
+.row
+  = link_to new_stat_path, class: 'btn btn-success' do
+    %i.glyphicon.glyphicon-plus
+    New Stat
+
 %br
 
-.col-md-3.pull-right
-  = form_tag(stats_url, method: :get) do
-    .input-group
-      = text_field_tag 'searchterm', nil, class: 'form-control', placeholder: 'Search'
-      %span.input-group-btn
-        = button_tag(type: 'submit', id: 'searchbutton', class: 'btn btn-default') do
-          %i.glyphicon.glyphicon-search
+.row
+  %p.pull-left#results Results #{@results[:first]} - #{@results[:last]} of #{@results[:total]}
+  .col-md-3.pull-right
+    = form_tag(stats_url, method: :get) do
+      .input-group
+        = text_field_tag 'searchterm', @searchterm, class: 'form-control', placeholder: 'Search'
+        %span.input-group-btn
+          = button_tag(type: 'submit', id: 'searchbutton', class: 'btn btn-default') do
+            %i.glyphicon.glyphicon-search
 
-%table.table.table-hover
-  %thead
-    %tr
-      %th.col-md-1 Date
-      %th Category
-      %th Answer
-      %th Year
-      %th Question
-      %th Source
-      %th.col-md-2
-      
-  %tbody
-    - @stats.each do |stat|
+.row
+  %table.table.table-hover
+    %thead
       %tr
-        %td= stat.id.generation_time.strftime('%Y-%m-%d')
-        %td= stat.category.capitalize
-        %td= stat.answer
-        %td= stat.year
-        %td= stat.question
-        %td= link_to stat.source, stat.link
-        %td
-          = link_to 'Show', stat, class: 'btn btn-primary btn-xs'
-          = link_to 'Edit', edit_stat_path(stat), class: 'btn btn-info btn-xs'
-          = link_to 'Destroy', stat, :method => :delete, :data => { :confirm => 'Are you sure?' }, class: 'btn btn-danger btn-xs'
-- if @stats.empty?
-  %p No results found
-= paginate @stats
+        %th.col-md-1 Date
+        %th Category
+        %th Question
+        %th Answer
+        %th Year
+        %th Source
+        %th.col-md-2
+
+    %tbody
+      - @stats.each do |stat|
+        %tr
+          %td= stat.id.generation_time.strftime('%Y-%m-%d')
+          %td= stat.category.capitalize
+          %td= stat.question
+          %td= stat.answer
+          %td= stat.year
+          %td= link_to stat.source, stat.link
+          %td
+            = link_to 'Show', stat, class: 'btn btn-primary btn-xs'
+            = link_to 'Edit', edit_stat_path(stat), class: 'btn btn-info btn-xs'
+            = link_to 'Destroy', stat, :method => :delete, :data => { :confirm => 'Are you sure?' }, class: 'btn btn-danger btn-xs'
+  - if @stats.empty?
+    %p No results found
+  = paginate @stats

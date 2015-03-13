@@ -68,6 +68,32 @@ RSpec.describe StatsController, type: :controller do
       get :index, {searchterm: 'question'}
       expect(assigns(:stats).to_a).to eq(list)
     end
+    
+    it 'assigns results info as @results' do
+      TestObjects.stats!(3)
+      results = { first: 1, last: 2, total: 3 }
+      get :index, {per_page: 2}
+      expect(assigns(:results)).to eq(results)
+    end
+
+    it 'assigns search results info as @results' do
+      TestObjects.stats!(2)
+      results = { first: 1, last: 2, total: 2 }
+      get :index, {searchterm: 'question'}
+      expect(assigns(:results)).to eq(results)
+    end
+    
+    it 'assigns search term to @searchterm' do
+      query = 'question'
+      get :index, {searchterm: query}
+      expect(assigns(:searchterm)).to eq(query)
+    end
+    
+    it 'lists all stats if search term is blank' do
+      list = TestObjects.stats!(1)
+      get :index, {searchterm: ''}
+      expect(assigns(:stats).to_a).to eq(list)
+    end
   end
 
   describe "GET #show" do
@@ -111,19 +137,6 @@ RSpec.describe StatsController, type: :controller do
         post :create, {:stat => valid_attributes}, valid_session
         expect(response).to redirect_to(Stat.last)
       end
-      
-      # it "strips leading and trailing spaces from Stat's string attributes" do
-#         question = 'Question string with leading and trailing spaces'
-#         source = 'Source'
-#         valid_attributes[:question] = "   #{question}   "
-#         valid_attributes[:source] = "   #{source}   "
-#
-#         post :create, {:stat => valid_attributes}, valid_session
-#
-#         new_stat = Stat.last
-#         expect(new_stat.question).to eq(question)
-#         expect(new_stat.source).to eq(source)
-#       end
     end
 
     context "with invalid params" do
