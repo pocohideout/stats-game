@@ -28,7 +28,7 @@
         %th Answer
         %th Year
         %th Source
-        %th.col-md-2
+        %th.col-md-3
 
     %tbody
       - @stats.each do |stat|
@@ -43,6 +43,7 @@
             = link_to 'Show', stat, class: 'btn btn-primary btn-xs'
             = link_to 'Edit', edit_stat_path(stat), class: 'btn btn-info btn-xs'
             = link_to 'Destroy', stat, :method => :delete, :data => { :confirm => 'Are you sure?' }, class: 'btn btn-danger btn-xs'
+            = link_to 'Copy', new_stat_path(id: stat), class: 'btn btn-success btn-xs'
   - if @stats.empty?
     %p No results found
   = paginate @stats

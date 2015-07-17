@@ -1,6 +1,8 @@
 require 'search_engine'
 require 'stat_search_engine'
 require 'ext/array'
+# require 'bson'
+# require 'moped'
 
 class StatsController < ApplicationController
   before_action :set_stat, only: [:show, :edit, :update, :destroy]
@@ -44,7 +46,13 @@ class StatsController < ApplicationController
 
   # GET /stats/new
   def new
-    @stat = Stat.new
+    if params[:id]
+      original = Stat.find(params[:id])
+      @stat = Stat.new(original.attributes)
+      @stat._id = BSON::ObjectId.new
+    else
+      @stat = Stat.new
+    end
   end
 
   # GET /stats/1/edit

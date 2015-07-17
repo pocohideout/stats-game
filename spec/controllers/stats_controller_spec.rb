@@ -105,9 +105,20 @@ RSpec.describe StatsController, type: :controller do
   end
 
   describe "GET #new" do
-    it "assigns a new stat as @stat" do
-      get :new, {}, valid_session
-      expect(assigns(:stat)).to be_a_new(Stat)
+    context 'without existing stat' do
+      it "assigns a new stat as @stat" do
+        get :new, {}, valid_session
+        expect(assigns(:stat)).to be_a_new(Stat)
+      end
+    end
+    
+    context 'with existing stat' do
+      it 'clones existing stat as @stat, with a new ID' do
+        stat = Stat.create! valid_attributes
+        get :new, {id: stat._id}, valid_session
+        expect(assigns(:stat)).to be_a_new(Stat)
+        expect(assigns(:stat)._id).to_not eq(stat._id) 
+      end
     end
   end
 
