@@ -83,6 +83,6 @@ group :development, :test do
 
   # To clear MongoDB test database
   gem 'database_cleaner'
-  gem 'mongoid-tree'  # Include this only temporarily, until the build after database_cleaner 1.4.0 is released. See bug: https://github.com/DatabaseCleaner/database_cleaner/issues/299
+  #gem 'mongoid-tree'  # Include this only temporarily, until the build after database_cleaner 1.4.0 is released. See bug: https://github.com/DatabaseCleaner/database_cleaner/issues/299
 end
 
