@@ -6,8 +6,8 @@ describe SearchEngine do
     search_term = 'some search terms'
     
     objects = [1, 2]
-    allow(model).to receive_message_chain('limit.text_search').and_return(objects)
-    expect(model.limit).to receive(:text_search).with(search_term)
+    allow(model).to receive_message_chain('limit.where').and_return(objects)
+    expect(model.limit).to receive(:where).with({:$text => {:$search => search_term}})
     
     results = SearchEngine.search(model, search_term)
     
@@ -18,7 +18,7 @@ describe SearchEngine do
     model = double('A Rails model')
 
     objects = [1, 2]
-    allow(model).to receive_message_chain('limit.text_search').and_return(objects)
+    allow(model).to receive_message_chain('limit.where').and_return(objects)
     
     expect(model).to receive(:limit).with(50)
     

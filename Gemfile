@@ -34,7 +34,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'haml-rails', '~> 0.8'
 
 # For MongoDB
-gem 'mongoid', '~> 4.0.0'
+gem 'mongoid', '~> 5.0'
 gem 'simple_enum', '~> 2.0.0', require: 'simple_enum/mongoid'
 
 # For authentication
@@ -79,7 +79,7 @@ group :development, :test do
   gem 'selenium-webdriver', '~> 2.44.0'
 
   # RSpec with Mongoid
-  gem 'mongoid-rspec', '~> 2.1.0'
+  gem 'mongoid-rspec', '~> 3.0.0'
 
   # To clear MongoDB test database
   gem 'database_cleaner'
